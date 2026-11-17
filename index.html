@@ -123,6 +123,43 @@ client.auth.getUser().then(({data}) => {
 }).catch(() => {
   showMessage("تعذر الاتصال بقاعدة البيانات");
 });
+
+async function addStore() {
+  const input = document.getElementById("storeName");
+  const message = document.getElementById("storeMessage");
+  const name = input.value.trim();
+
+  if (!name) {
+    message.textContent = "اكتب اسم المتجر أولاً";
+    return;
+  }
+
+  message.textContent = "جاري إنشاء المتجر...";
+
+  const { data: { user }, error: authError } =
+    await client.auth.getUser();
+
+  if (authError || !user) {
+    message.textContent = "لازم تسجل الدخول أولاً";
+    return;
+  }
+
+  const { error } = await client
+    .from("stores")
+    .insert({
+      name: name,
+      created_by: user.id
+    });
+
+  if (error) {
+    message.textContent = "تعذر إنشاء المتجر: " + error.message;
+    return;
+  }
+
+  message.textContent = "✅ تم إنشاء المتجر بنجاح";
+  input.value = "";
+}
+
 </script>
 </body>
 </html>
