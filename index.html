@@ -44,7 +44,16 @@ button:disabled{opacity:.6}
 </div>
 <div class="card">
 <h3>📋 الطلبات</h3>
-<p>قريبًا: إضافة الطلبات ومتابعة حالتها.</p>
+<p>
+<input id="storeName" type="text" placeholder="اكتب اسم المتجر الجديد">
+
+<button onclick="addStore()">➕ إضافة متجر جديد</button>
+
+<p id="storeMessage"></p>
+
+<h3>🏪 متاجري</h3>
+<div id="storesList">جاري تحميل المتاجر...</div>
+</p>
 </div>
 <button class="secondary" onclick="logout()">تسجيل الخروج</button>
 </section>
