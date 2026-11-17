@@ -38,23 +38,31 @@ button:disabled{opacity:.6}
 <section id="dashboard" class="card hidden">
 <h2>👋 مرحبًا بك في طلبياتي</h2>
 <p id="userEmail"></p>
+
 <div class="card">
-<h3>🏪 المتاجر</h3>
-<p>قريبًا: إدارة المتاجر والموظفين.</p>
+  <h3>🏪 المتاجر</h3>
+  <p>أنشئ متجرك الأول من الخانة الموجودة بالأسفل.</p>
+
+  <input id="storeName" type="text"
+    placeholder="اكتب اسم المتجر الجديد">
+
+  <button onclick="addStore()">
+    ➕ إضافة متجر جديد
+  </button>
+
+  <p id="storeMessage"></p>
+
+  <h3>🏪 متاجري</h3>
+  <div id="storesList">قائمة المتاجر ستظهر هنا قريبًا</div>
 </div>
+
+</div>
+
 <div class="card">
-<h3>📋 الطلبات</h3>
-<p>
-<input id="storeName" type="text" placeholder="اكتب اسم المتجر الجديد">
-
-<button onclick="addStore()">➕ إضافة متجر جديد</button>
-
-<p id="storeMessage"></p>
-
-<h3>🏪 متاجري</h3>
-<div id="storesList">جاري تحميل المتاجر...</div>
-</p>
+  <h3>📋 الطلبات</h3>
+  <p>قريبًا: إدارة الطلبات.</p>
 </div>
+
 <button class="secondary" onclick="logout()">تسجيل الخروج</button>
 </section>
 </main>
