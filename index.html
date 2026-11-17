@@ -166,6 +166,7 @@ async function addStore() {
 
   message.textContent = "✅ تم إنشاء المتجر بنجاح";
   input.value = "";
+  await loadStores();
 }
 async function loadStores() {
   const list = document.getElementById("storesList");
