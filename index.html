@@ -124,6 +124,9 @@ async function logout() {
 
 client.auth.onAuthStateChange((_event,session) => {
   showUser(session?.user || null);
+  if (session?.user) {
+  loadStores();
+}
 });
 
 client.auth.getUser().then(({data}) => {
