@@ -167,7 +167,44 @@ async function addStore() {
   message.textContent = "✅ تم إنشاء المتجر بنجاح";
   input.value = "";
 }
+async function loadStores() {
+  const list = document.getElementById("storesList");
+  if (!list) return;
 
+  list.textContent = "جاري تحميل المتاجر...";
+
+  const { data: { user }, error: authError } =
+    await client.auth.getUser();
+
+  if (authError || !user) {
+    list.textContent = "سجّل الدخول لعرض متاجرك";
+    return;
+  }
+
+  const { data, error } = await client
+    .from("stores")
+    .select("id, name")
+    .order("created_at", { ascending: false });
+
+  if (error) {
+    list.textContent = "خطأ: " + error.message;
+    return;
+  }
+
+  list.replaceChildren();
+
+  if (!data || data.length === 0) {
+    list.textContent = "ما عندكش متاجر حاليًا";
+    return;
+  }
+
+  data.forEach(store => {
+    const item = document.createElement("div");
+    item.className = "card";
+    item.textContent = "🏪 " + store.name;
+    list.appendChild(item);
+  });
+}
 </script>
 </body>
 </html>
