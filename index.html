@@ -213,6 +213,55 @@ async function loadStores() {
     list.appendChild(item);
   });
 }
+  
+async function loadOrders() {
+  const list = document.getElementById("ordersList");
+  if (!list) return;
+
+  list.textContent = "جاري تحميل الطلبات...";
+
+  const { data: stores, error: storeError } = await client
+    .from("stores")
+    .select("id, name");
+
+  if (storeError) {
+    list.textContent = "خطأ: " + storeError.message;
+    return;
+  }
+
+  if (!stores || stores.length === 0) {
+    list.textContent = "لا توجد متاجر";
+    return;
+  }
+
+  const { data: orders, error } = await client
+    .from("orders")
+    .select("*")
+    .eq("store_id", stores[0].id);
+
+  if (error) {
+    list.textContent = "خطأ: " + error.message;
+    return;
+  }
+
+  list.replaceChildren();
+
+  if (!orders || orders.length === 0) {
+    list.textContent = "لا توجد طلبات حالياً";
+    return;
+  }
+
+  orders.forEach(order => {
+    const item = document.createElement("div");
+    item.className = "card";
+    item.textContent = "📦 طلب: " + order.id +
+      " | الحالة: " + (order.status || "جديد");
+    list.appendChild(item);
+  });
+}
+
+loadOrders();
+
 </script>
 </body>
 </html>
