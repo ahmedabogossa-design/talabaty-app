@@ -212,6 +212,7 @@ async function loadStores() {
     item.textContent = "🏪 " + store.name;
     list.appendChild(item);
   });
+    await loadOrders();
 }
   
 async function loadOrders() {
